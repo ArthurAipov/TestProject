@@ -7,6 +7,7 @@ using TestProject.Models;
 using System.Windows.Media;
 using System.Threading;
 using System.Windows.Threading;
+using TestProject.AppWindows;
 
 namespace TestProject.Pages
 {
@@ -76,6 +77,7 @@ namespace TestProject.Pages
                     var day = random.Next(1, countDays);
                     task.startTime = new DateTime(year, mounth, day);
                     task.endTime = new DateTime(year, mounth, day).AddDays(random.Next(2, 10));
+                    task.id = allTasks.Count + 1;
                     project.tasks.Add(task);
                     allTasks.Add(task);
                 }
@@ -121,6 +123,7 @@ namespace TestProject.Pages
                     var startTime = task.startTime.Date;
                     var endTime = task.endTime.Date;
                     var border = new Border();
+                    var textBlock = new TextBlock();
                     var workTime = (endTime - startTime).Days;
                     var difference = (startTime - minTime).Days;
                     if (task.status.id == 4)
@@ -143,11 +146,26 @@ namespace TestProject.Pages
                     border.SetValue(Grid.ColumnProperty, difference + 1);
                     border.SetValue(Grid.ColumnSpanProperty, workTime);
                     border.SetValue(Grid.RowProperty, i + 1);
+                    textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                    textBlock.VerticalAlignment = VerticalAlignment.Center;
+                    textBlock.Text = task.id.ToString();
+                    border.Child = textBlock;
+                    border.Name = $"BorderTask{task.id}";
+                    border.MouseLeftButtonDown += Border_MouseLeftButtonDown;
                     MainGrid.Children.Add(border);
                 }
 
             }
         }
+
+        private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var border = sender as Border;
+            var borderName = border.Name.Substring(10);
+            var task = allTasks.FirstOrDefault(x => x.id.ToString() == borderName);
+            new TaskWindow(task).ShowDialog();
+        }
+
         private void CreateRows()
         {
 
@@ -179,8 +197,6 @@ namespace TestProject.Pages
             MainGrid.ColumnDefinitions.Clear();
             textBlockLoading.Visibility = Visibility.Visible;
             MainGrid.Children.Add(textBlockLoading);
-
-
 
         }
 
