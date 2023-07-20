@@ -1,0 +1,55 @@
+﻿<Page x:Class="TestProject.Pages.TasksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:TestProject.Pages"
+      mc:Ignorable="d"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      Title="TasksPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Margin="10,0,0,0">
+            <Image Source="/Resource/Pending.png"
+                   Height="20" />
+            <TextBlock Width="115"
+                       Text="Pending:"
+                       Name="TextBlockPending"
+                       VerticalAlignment="Center" />
+            <Image Source="/Resource/Jeopardy.png"
+                   Height="20" />
+            <TextBlock Width="115"
+                       Name="TextBlockJeopadry"
+                       Text="Jeopadry:"
+                       VerticalAlignment="Center" />
+            <Image Source="/Resource/Completed.png"
+                   Height="20" />
+            <TextBlock Width="115"
+                       Text="Comlpleted:"
+                       Name="TextBlockComlpleted"
+                       VerticalAlignment="Center" />
+            <Button Name="ButtonGenerateSchudule"
+                    Width="120"
+                    Margin="15,0,0,0"
+                    Click="ButtonGenerateSchudule_Click">
+                <Image Source="/Resource/Generate_Schedule.png" />
+            </Button>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto"
+                      Name="GridScrollViewer">
+            <Grid Name="MainGrid">
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
